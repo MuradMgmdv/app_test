@@ -1,10 +1,10 @@
+import { v4 } from 'uuid';
 import { DB } from '../app.js';
 
 export const getAll = async (req, res) => {
   try {
     res.json(DB.posts);
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       message: 'Не удалось получить статьи',
     });
@@ -16,7 +16,6 @@ export const getOne = async (req, res) => {
     const onePost = DB.posts.find((el) => el.id === req.params.id);
     res.json(onePost);
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       message: 'Не удалось получить статью',
     });
@@ -30,12 +29,13 @@ export const create = async (req, res) => {
       title: req.body.title,
       text: req.body.text,
       subject: req.body.subject,
-      user: req.body.user,
+      author: req.body.author,
+      comments: [],
+      atCreated: req.body.atCreated,
     };
     DB.posts.push(newPost);
     res.json(newPost);
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       message: 'Не удалось создать статью',
     });
@@ -43,10 +43,29 @@ export const create = async (req, res) => {
 };
 
 export const editPost = async (req, res) => {
+  const editPost = req.body;
   try {
-    res.json(DB.posts);
+    const elementIndex = DB.posts.findIndex((item) => item.id === req.params.id);
+
+    if (elementIndex !== -1) {
+      DB.posts[elementIndex] = editPost;
+    }
+    res.json(req.body);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({
+      message: 'Не удалось изменить статью',
+    });
+  }
+};
+
+export const addComment = async (req, res) => {
+  try {
+    const elementIndex = DB.posts.findIndex((item) => item.id === req.params.id);
+    if (elementIndex !== -1) {
+      DB.posts[elementIndex].comments.push(req.body.comment);
+    }
+    res.json(req.body);
+  } catch (err) {
     res.status(500).json({
       message: 'Не удалось изменить статью',
     });
@@ -55,10 +74,9 @@ export const editPost = async (req, res) => {
 
 export const remove = async (req, res) => {
   try {
-    DB.todos = DB.todos.filter((todo) => todo.id !== req.params.id);
+    DB.posts = DB.posts.filter((el) => el.id !== req.params.id);
     res.sendStatus(200);
   } catch (err) {
-    console.log(err);
     res.status(500).json({
       message: 'Не удалось удалить статью',
     });
