@@ -48,7 +48,7 @@ function OneArticle() {
                 name="comment"
                 type="text"
               />
-              <button onClick={handkeClick}>Отправить</button>
+              <button className={styles.btn} onClick={handkeClick}>Отправить</button>
             </div>
             <div className={styles.commentsBody}>
               {post.comments.map((el, i) => (

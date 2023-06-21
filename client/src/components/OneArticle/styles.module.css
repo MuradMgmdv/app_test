@@ -100,3 +100,14 @@
   background: rgb(77, 116, 199);
   border-radius: 100%;
 }
+
+.btn{
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100px;
+  height: 26px;
+  background-color: rgb(47, 82, 112);
+  color: white;
+}
