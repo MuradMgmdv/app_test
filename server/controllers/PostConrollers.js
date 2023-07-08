@@ -1,5 +1,5 @@
 import { v4 } from 'uuid';
-import { DB } from '../app.js';
+import { DB } from '../DB.js';
 
 export const getAll = async (req, res) => {
   try {
