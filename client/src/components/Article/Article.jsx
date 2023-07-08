@@ -13,8 +13,8 @@ function Article({ el }) {
   };
 
   return (
-    <div  className={style.cardWrapper}>
-      <div  className={style.cardHead}>
+    <div className={style.cardWrapper}>
+      <div className={style.cardHead}>
         <div onClick={() => navigate(`post/${el.id}`)} className={style.title}>
           {el.title}
         </div>

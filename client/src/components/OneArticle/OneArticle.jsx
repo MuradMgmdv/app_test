@@ -48,13 +48,15 @@ function OneArticle() {
                 name="comment"
                 type="text"
               />
-              <button className={styles.btn} onClick={handkeClick}>Отправить</button>
+              <button className={styles.btn} onClick={handkeClick}>
+                Отправить
+              </button>
             </div>
             <div className={styles.commentsBody}>
               {post.comments.map((el, i) => (
                 <div key={i} className={styles.commentCard}>
                   <div className={styles.avatar}></div>
-                  <span >{el}</span>
+                  <span>{el}</span>
                 </div>
               ))}
             </div>
